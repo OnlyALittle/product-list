@@ -99,6 +99,7 @@ export default defineComponent({
         imgPic: String,
         title: String,
         tUrl: String,
+        tAllUrl: String,
         oldPrice: [String, Number],
         price: [String, Number],
     },

@@ -24,6 +24,7 @@
                         :oldPrice="item.oldPrice"
                         :price="item.price"
                         :tUrl="item.tUrl"
+                        :tAllUrl="item.tUrlAll"
                     ></co-item>
                 </div>
             </van-list>
@@ -33,6 +34,7 @@
 <script>
 import { defineComponent, reactive, ref, nextTick } from 'vue';
 import { List, PullRefresh  } from 'vant';
+import Axios from 'axios';
 import CoItem from './item.vue'
 
 export default defineComponent({
@@ -52,9 +54,10 @@ export default defineComponent({
         });
 
         const getData = async (page, pageSize) => {
-            return import('../../public/data')
+            // return import('../../public/data')
+            return Axios.get('../../data.json')
                 .then(JSONData => {
-                    let allData = JSONData.default;
+                    let allData = JSONData.data;
                     let allount =allData.length
                     let startIndex = (page - 1) * pageSize;
                     let endIndex = page * pageSize;
@@ -74,7 +77,6 @@ export default defineComponent({
         };  
 
         const onLoad = () => {
-            console.log('onLoad');
             loading.value = true;
             state.page += 1;
             getData(state.page, state.pageSize).then((data) => {
