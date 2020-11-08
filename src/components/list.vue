@@ -34,7 +34,6 @@
 import { defineComponent, reactive, ref, nextTick } from 'vue';
 import { List, PullRefresh  } from 'vant';
 import CoItem from './item.vue'
-import JSONData from '../../public/data';
 
 export default defineComponent({
     components: {
@@ -43,8 +42,6 @@ export default defineComponent({
         [PullRefresh.name]: PullRefresh,
     },
     setup() {
-        let allData = JSONData;
-        let allount =allData.length
         let refreshing = ref(true);
         let loading = ref(true);
         let finished = ref(false);
@@ -54,46 +51,51 @@ export default defineComponent({
             pageSize: 10,
         });
 
-        const getData = (data, page, pageSize) => {
-            let startIndex = (page - 1) * pageSize;
-            let endIndex = page * pageSize;
-            let newData = data.slice(startIndex, endIndex);
-            if (allount <= page * pageSize) {
-                return {
-                    data: newData,
-                    finished: true
-                }
-            } else {
-                return {
-                    data: newData,
-                    finished: false
-                }
-            }
+        const getData = async (page, pageSize) => {
+            return import('../../public/data')
+                .then(JSONData => {
+                    let allData = JSONData.default;
+                    let allount =allData.length
+                    let startIndex = (page - 1) * pageSize;
+                    let endIndex = page * pageSize;
+                    let newData = allData.slice(startIndex, endIndex);
+                    if (allount <= page * pageSize) {
+                        return {
+                            data: newData,
+                            finished: true
+                        }
+                    } else {
+                        return {
+                            data: newData,
+                            finished: false
+                        }
+                    }
+                });
         };  
 
         const onLoad = () => {
             console.log('onLoad');
             loading.value = true;
             state.page += 1;
-            let data = getData(allData, state.page, state.pageSize);
-            state.data.push(...data.data);
-            console.log(data.data.length)
-            nextTick(() => {
-                finished.value = data.finished;
-                loading.value = false;
+            getData(state.page, state.pageSize).then((data) => {
+                state.data.push(...data.data);
+                nextTick(() => {
+                    finished.value = data.finished;
+                    loading.value = false;
+                });
             });
         }
 
         const onRefresh =() => {
-            console.log('onRefresh')
             state.page = 1;
             refreshing.value = true;
-            let data = getData(allData, 1, state.pageSize);
-            state.data = data.data;
-            nextTick(() => {
-                refreshing.value = false;
-                finished.value = data.finished;
-            });
+            getData(1, state.pageSize).then((data) => {
+                state.data = data.data;
+                nextTick(() => {
+                    refreshing.value = false;
+                    finished.value = data.finished;
+                });
+            })
         }
 
         return {

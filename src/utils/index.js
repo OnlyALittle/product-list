@@ -18,7 +18,7 @@ export const tTiggle = (url) => {
                     //应用宝下载地址 (emmm 找不到淘宝应用宝的地址，这里放的是 lucky coffee 地址)
                     window.location.href ="https://a.app.qq.com/o/simple.jsp?pkgname=com.lucky.luckyclient";
                 }
-            }, 2000);
+            }, 3000);
         }
         //ios端
         if (isIOS) {
@@ -30,7 +30,7 @@ export const tTiggle = (url) => {
                     //App store下载地址
                     window.location.href = "http://itunes.apple.com/app/id387682726";
                 }
-            }, 2000);
+            }, 3000);
         }
     }
     
