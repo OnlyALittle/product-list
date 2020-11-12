@@ -8,8 +8,13 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
+      props: true,
       components: { default: Home },
     },
-    { path: '/list', redirect: '/' },
+    {
+      path: '/:type',
+      props: true,
+      components: { default: Home },
+    }
   ],
 })

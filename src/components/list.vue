@@ -38,12 +38,15 @@ import Axios from 'axios';
 import CoItem from './item.vue'
 
 export default defineComponent({
+    props: {
+        type: String
+    },
     components: {
         CoItem,
         [List.name]: List,
         [PullRefresh.name]: PullRefresh,
     },
-    setup() {
+    setup(props) {
         let refreshing = ref(true);
         let loading = ref(true);
         let finished = ref(false);
@@ -55,7 +58,8 @@ export default defineComponent({
 
         const getData = async (page, pageSize) => {
             // return import('../../public/data')
-            return Axios.get('../../data.json')
+            const url = props.type ? `../../${props.type}-data.json` : '../../data.json';
+            return Axios.get(url)
                 .then(JSONData => {
                     let allData = JSONData.data;
                     let allount =allData.length
@@ -83,6 +87,11 @@ export default defineComponent({
                 state.data.push(...data.data);
                 nextTick(() => {
                     finished.value = data.finished;
+                    loading.value = false;
+                });
+            }).catch(() => {
+                nextTick(() => {
+                    finished.value = true;
                     loading.value = false;
                 });
             });
