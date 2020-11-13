@@ -2,11 +2,11 @@
 
 ## 配置说明
 ### 数据
-- data.json 对应 xxx.xx.xx/
-- list-data.json 对应 xxx.xx.xx/list
+- data.json 对应的是 xxx.xx.xx/ 路径
+- list-data.json 对应 xxx.xx.xx/list 路径
 - 以此类推
 - data.json说明
-```js
+```javascript
 	[{
         "id": "0", // ID
         "title": "", // 标题
