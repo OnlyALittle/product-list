@@ -19,7 +19,7 @@
                 <div class="list-wrapper">
                     <co-item
                         v-for="item in state.data" :key="(item.id || item.img)"
-                        :img-pic="require(`../assets//pic/${item.img}`)"
+                        :img-pic="`/pic/${item.img}`"
                         :title="item.title"
                         :oldPrice="item.oldPrice"
                         :price="item.price"
