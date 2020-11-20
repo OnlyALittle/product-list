@@ -1,24 +1,19 @@
 # product-list
 
-## Project setup
+## 配置说明
+### 数据
+- data.json 对应的是 xxx.xx.xx/ 路径
+- list-data.json 对应 xxx.xx.xx/list 路径
+- 以此类推
+- data.json说明
+```javascript
+	[{
+        "id": "0", // ID
+        "title": "", // 标题
+        "tUrlAll": "", // 跳转路径，tUrl优先
+        "tUrl": "item.taobao.com/item.htm?id=xxx", // 跳转协议，最终会被补充成 taobao://item.taobao.com/item.htm?id=xxx
+        "img": "0.jpg", // 图片名称
+        "oldPrice": "188", // 旧价格
+        "price": "98" // 新价格
+    }]
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

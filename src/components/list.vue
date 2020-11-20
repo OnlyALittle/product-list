@@ -18,7 +18,7 @@
                 @load="onLoad">
                 <div class="list-wrapper">
                     <co-item
-                        v-for="item in state.data" :key="(item.id || item.img)"
+                        v-for="(item, index) in state.data" :key="index"
                         :img-pic="`/image/${item.img}`"
                         :title="item.title"
                         :oldPrice="item.oldPrice"

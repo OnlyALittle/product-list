@@ -105,7 +105,11 @@ export default defineComponent({
     },
     setup(props) {
         const openT = () => {
-            tTiggle(props.tUrl);
+            if (props.tUrl) {
+                tTiggle(props.tUrl);
+            } else{
+                props.tAllUrl && (window.location.href = props.tAllUrl);
+            }
         };
 
         return {
