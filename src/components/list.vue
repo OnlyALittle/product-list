@@ -19,7 +19,7 @@
                 <div class="list-wrapper">
                     <co-item
                         v-for="item in state.data" :key="(item.id || item.img)"
-                        :img-pic="`/pic/${item.img}`"
+                        :img-pic="`/image/${item.img}`"
                         :title="item.title"
                         :oldPrice="item.oldPrice"
                         :price="item.price"
@@ -58,7 +58,7 @@ export default defineComponent({
 
         const getData = async (page, pageSize) => {
             // return import('../../public/data')
-            const url = props.type ? `../../${props.type}-data.json` : '../../data.json';
+            const url = props.type ? `../../data/${props.type}-data.json` : '../../data/data.json';
             return Axios.get(url)
                 .then(JSONData => {
                     let allData = JSONData.data;
